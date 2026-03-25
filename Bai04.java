@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Bai04 {
     static List<Integer> longestSubArray = new ArrayList<>();
     static void findLongestSubArray(int[] arr, int k, int currentIndex, List<Integer> currentSubArray) {
+        //Kiểm tra xem phần còn lại có bằng không hay không, nếu bằng 0 thì kiểm tra xem subarray hiện tại có dài hơn subarray dài nhất đã tìm được hay không
         if (k == 0) {
             if (currentSubArray.size() > longestSubArray.size()) {
                 longestSubArray = new ArrayList<>(currentSubArray);
@@ -12,10 +13,12 @@ public class Bai04 {
             return;
         }
 
+        //Duyệt từng phần tử của mảng, nếu phần tử đó nhỏ hơn hoặc bằng k thì thêm vào subarray hiện tại và gọi đệ quy để tìm phần còn lại. 
         for (int i = currentIndex; i < arr.length; i++) {
             if (arr[i] <= k) {
                 currentSubArray.add(arr[i]);
                 findLongestSubArray(arr, k - arr[i], i + 1, currentSubArray);
+                //Nếu không tìm thấy subarray nào có tổng bằng k thì loại bỏ phần tử cuối cùng của subarray hiện tại.
                 currentSubArray.remove(currentSubArray.size() - 1);
             }
         }    
